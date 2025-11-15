@@ -355,7 +355,7 @@ static int pcan_protocol_send_status( uint8_t channel, uint8_t status )
 extern int pcan_can_set_canfdclock(uint32_t can_clock);
 int pcan_protocol_set_baudrate( uint8_t channel, struct t_can_bitrate *pbitrate, struct t_can_bitrate *pdata_bitrate )
 {
-  uint32_t   bitrate;//, pcan_bitrate, pcan_brp;
+  uint32_t   bitrate, sample; //, pcan_bitrate, pcan_brp;
   struct t_can_bitrate *pcur;
 
   if( pbitrate )
@@ -368,7 +368,13 @@ int pcan_protocol_set_baudrate( uint8_t channel, struct t_can_bitrate *pbitrate,
   //pcan_brp = ((system_get_can_clock()/1000000u)*pcur->brp)/(pcan_device.can[channel].can_clock/1000000u);
   //pcan_bitrate = (((system_get_can_clock())/pcan_brp)/(1/*tq*/ + pcur->tseg1 + pcur->tseg2 ));
   bitrate = (((pcan_device.can[channel].can_clock)/pcur->brp)/(1/*tq*/ + pcur->tseg1 + pcur->tseg2 ));
-
+  sample = 1000 * (1 + pcur->tseg1) / (1 + pcur->tseg1 + pcur->tseg2);
+  
+  PRINT_DEBUG("%s bitrate=%u, sample=%u, brp=%u, tseg1=%u, tseg2=%u, sjw=%u", 
+  										 (pdata_bitrate == NULL)? "nom":"data", \
+	  										bitrate, sample, \
+	  										pcur->brp, pcur->tseg1, \
+	  										pcur->tseg2, pcur->sjw);
   //pcan_can_set_bitrate( channel, bitrate, ( pcur == pdata_bitrate ) );
   pcan_can_set_bitrate_ex( channel, pcur->brp, pcur->tseg1, pcur->tseg2, pcur->sjw, ( pcur == pdata_bitrate ) );
   

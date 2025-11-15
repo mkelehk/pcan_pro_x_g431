@@ -395,12 +395,10 @@ void pcan_can_set_bitrate( int bus, uint32_t bitrate, int is_data_bitrate )
 
 }
 
-//该接口需同时改变CANFD时钟频率pcan_can_set_canfdclock(pcan_device.can[channel].can_clock)，目前PCANFD时钟源固定为80MHz
+//该接口需同时改变CANFD时钟频率pcan_can_set_canfdclock(pcan_device.can[channel].can_clock)
 void pcan_can_set_bitrate_ex( int bus, uint16_t brp, uint8_t tseg1, uint8_t tseg2, uint8_t sjw, int is_data_bitrate )
 {
 	eFeedback eRet = FBK_Success;
-
-	PRINT_DEBUG("pcan_can_set_bitrate_ex(%d, %d, %d, %d, %d)", brp, tseg1, tseg2, sjw, is_data_bitrate);
 	
 	if(is_data_bitrate)
 		eRet = can_set_data_bit_timing(brp, tseg1, tseg2, sjw);
@@ -409,7 +407,7 @@ void pcan_can_set_bitrate_ex( int bus, uint16_t brp, uint8_t tseg1, uint8_t tseg
 
 	if(eRet != FBK_Success)
 	{
-		PRINT_FAULT("pcan_can_set_bitrate_ex(%d, %d, %d, %d, %d) Error", brp, tseg1, tseg2, sjw, is_data_bitrate);
+		PRINT_FAULT("pcan_can_set_bitrate_ex error");
 		return;
 	}
 }

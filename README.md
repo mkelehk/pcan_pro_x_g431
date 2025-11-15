@@ -7,13 +7,14 @@
 管脚:
 |PIN/PINS|DESCRIPTION|
 | ------ | ------ |
-|PA6/PA15|STATUS LED|
-|PA5/PA0|TX/RX CAN LED|
+|PA15/PA6|STATUS LED|
+|PA0/PA5|WORK LED|
+|PB9/PB8|TXD/RXD CAN|
 |PA11/PA12 |USB FS DM/DP|
 
 特色:
 - 支持CAN FD
-- 适配PCAN-View的大部分功能（CANFD、设置频率、波特率/采样点、ISO/Non-ISO模式等）
+- 适配PCAN-View的大部分功能（CAN FD、设置时钟频率、波特率/采样点、ISO/Non-ISO模式、仅侦听模式等）
 
 限制:
 - Some protocol specific messages not implemented yet
