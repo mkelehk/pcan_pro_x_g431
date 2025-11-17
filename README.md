@@ -30,7 +30,7 @@ c). 使用 make clean清理工程
 - 2，windows主机  
 推荐使用官方“STM32CubeIDE”的最新版本进行编译和仿真。  
 以“Create a new Makefile project in a directory containing existing code”方式创建工程。  
-在Makefile中修改“DEBUG=1”（增加“-g”编译选项）后，搭配ST-Link仿真器还能下断点和单步调试。  
+在Makefile中修改“DEBUG=1”（增加“-g”编译选项）后，搭配ST-Link仿真器还能下断点和单步调试。
 另外，因BOOT0管脚跟CAN RX管脚复用，使用SWD仿真时最好先使用“STM32 ST-LINK Utility”工具将BOOT0管脚功能屏蔽掉，使得程序总是从Flash启动，方便调试。具体参考doc文件夹的资料。  
 
 须知:
