@@ -14,11 +14,11 @@
 
 特色:
 - 支持CAN FD
-- 适配PCAN-View的大部分功能（CAN FD、设置时钟频率、波特率/采样点、ISO/Non-ISO模式、仅侦听模式等）
+- 适配PCAN-View的大部分功能（支持CAN FD、设置时钟频率、波特率/采样点、ISO/Non-ISO模式、仅侦听模式等）
 
 限制:
 - Some protocol specific messages not implemented yet
-- 1ms周期发送有丢包现象
+- 上位机周期发送测试“开启"和"停止"不断地切换，USB有丢数据现象，导致给CAN控制器发送的数据少了。
 - 未支持硬件过滤
 
 编译方法:
@@ -31,6 +31,7 @@ c). 使用 make clean清理工程
 推荐使用官方“STM32CubeIDE”的最新版本进行编译和仿真。  
 以“Create a new Makefile project in a directory containing existing code”方式创建工程。  
 在Makefile中修改“DEBUG=1”（增加“-g”编译选项）后，搭配ST-Link仿真器还能下断点和单步调试。  
+另外，因BOOT0管脚跟CAN RX管脚复用，使用SWD仿真时最好先使用“STM32 ST-LINK Utility”工具将BOOT0管脚功能屏蔽掉，使得程序总是从Flash启动，方便调试。具体参考doc文件夹的资料。  
 
 须知:
 - 本工程从https://github.com/moonglow/pcan_pro_x 移植过来。
