@@ -320,9 +320,12 @@ USBD_StatusTypeDef USBD_LL_SetupStage(USBD_HandleTypeDef *pdev, uint8_t *psetup)
     case USB_REQ_RECIPIENT_ENDPOINT:
       ret = USBD_StdEPReq(pdev, &pdev->request);
       break;
+    
+    //PCAN-USB FD需要处理该请求
     case USB_REQ_RECIPIENT_OTHER:
       ret = USBD_StdDevReq(pdev, &pdev->request);
       break;
+    
     default:
       ret = USBD_LL_StallEP(pdev, (pdev->request.bmRequest & 0x80U));
       break;
@@ -368,7 +371,7 @@ USBD_StatusTypeDef USBD_LL_DataOutStage(USBD_HandleTypeDef *pdev,
     }
     else
     {
-#if 1
+#if 0
       if (pdev->ep0_state == USBD_EP0_STATUS_OUT)
       {
         /*
@@ -454,7 +457,7 @@ USBD_StatusTypeDef USBD_LL_DataInStage(USBD_HandleTypeDef *pdev,
     }
     else
     {
-#if 1
+#if 0
       if ((pdev->ep0_state == USBD_EP0_STATUS_IN) ||
           (pdev->ep0_state == USBD_EP0_IDLE))
       {
