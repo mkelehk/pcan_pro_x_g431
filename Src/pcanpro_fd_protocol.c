@@ -612,14 +612,15 @@ static void pcan_protocol_process_cmd( uint8_t *ptr, uint16_t size )
 
 void pcan_protocol_process_data( uint8_t ep, uint8_t *ptr, uint16_t size )
 {
-  if( ep == 1 )
+  /* message data ? */
+  struct ucan_msg *pmsg = 0;
+  
+  if( ep == PCAN_USB_EP_CMDOUT )
   {
     pcan_protocol_process_cmd( ptr, size );
     return;
   }
-  /* message data ? */
-  struct ucan_msg *pmsg = 0;
-
+  
   while( size )
   {
     if( size < 4 )
