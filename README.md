@@ -1,7 +1,7 @@
 ## PCAN FD firmware for STM32G431 based boards
 
 目标硬件:
-* CANable2.0硬件，或跟它相似的、非标版本（带8MHz外部晶振或LED管脚有差异）的USB CAN模块。
+* CANable2.0硬件，或跟它相似的、非标版本（带8MHz外部晶振、LED管脚有差异）的USB CAN模块。
 * MCU型号为：STM32G431CBT6/STM32G431CBU6
 
 管脚:
@@ -9,8 +9,8 @@
 | ------ | ------ |
 |PA15/PA6|STATUS LED|
 |PA0/PA5|WORK LED|
-|PB9/PB8|TXD/RXD CAN|
-|PA11/PA12 |USB FS DM/DP|
+|PB9&PB8|TXD/RXD CAN|
+|PA11&PA12 |USB FS DM/DP|
 
 特色:
 - 支持CAN FD
@@ -18,7 +18,7 @@
 
 限制:
 - Some protocol specific messages not implemented yet
-- 上位机周期发送测试“开启"和"停止"不断地切换，USB有丢数据现象，导致给CAN控制器发送的数据少了。
+- 上位机周期发送测试“开启"和"停止"不断地切换，USB有丢数据现象，导致给CAN控制器发送的数据少了
 - 未支持硬件过滤
 
 编译方法:
