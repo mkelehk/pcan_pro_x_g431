@@ -104,7 +104,7 @@ void PrintDebugBuffer(int iLogLevel, const unsigned char * chfr, unsigned int ui
 {
 	char *cpColorEnd = SHELL_COLOR_DEFAULT;
 	
-    if (uiLength > PRINT_BUF_MAX_SIZE)
+    if (uiLength > 8*PRINT_BUF_MAX_SIZE/25)
     {
         printf("Not enough buffer: %d\r\n", uiLength);
         return;

@@ -141,10 +141,7 @@ static int _can_send( FDCAN_HandleTypeDef *p_can, struct t_can_msg *p_msg )
 		byte_count = utils_byte_count_to_dlc(byte_count);
 	}
 
-	// Shift bits up for direct storage in FIFO register
-	// It is stupid that ST Microelectronics did not define a processor independent macro for this shift operation.
-	// Will other processors also need this to be shifted 16 bits up ??
-	tx_header.DataLength = (byte_count & 0xF) << 16;
+	tx_header.DataLength = DLC_TO_HAL(byte_count);
 
 	// Transmit CAN packet
 	if (!can_send_packet(&tx_header, (void*)p_msg->data))
@@ -499,7 +496,7 @@ int pcan_can_isr_frame(FDCAN_RxHeaderTypeDef *phdr, uint8_t* pData)
 	}
 	
 	//经典CAN的数据长度
-	msg.size = (phdr->DataLength >> 16) & 0xF;
+	msg.size = HAL_TO_DLC(phdr->DataLength);
 	
 	if(phdr->FDFormat == FDCAN_FD_CAN)
 	{
