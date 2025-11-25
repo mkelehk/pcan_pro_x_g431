@@ -370,7 +370,7 @@ int pcan_protocol_set_baudrate( uint8_t channel, struct t_can_bitrate *pbitrate,
   bitrate = (((pcan_device.can[channel].can_clock)/pcur->brp)/(1/*tq*/ + pcur->tseg1 + pcur->tseg2 ));
   sample = 1000 * (1 + pcur->tseg1) / (1 + pcur->tseg1 + pcur->tseg2);
   
-  PRINT_DEBUG("%s bitrate=%u, sample=%u, brp=%u, tseg1=%u, tseg2=%u, sjw=%u", 
+  PRINT_DEBUG("%s bitrate=%lu, sample=%lu, brp=%u, tseg1=%u, tseg2=%u, sjw=%u", 
   										 (pdata_bitrate == NULL)? "nom":"data", \
 	  										bitrate, sample, \
 	  										pcur->brp, pcur->tseg1, \

@@ -1,6 +1,5 @@
 #include <stdio.h>
 #include <unistd.h>
-#include <stdarg.h>
 
 #include "stm32g4xx.h"
 #include "uart.h"
@@ -8,141 +7,8 @@
 #include "debug.h"
 
 #ifdef DEBUG
-#define SHELL_COLOR_DEFAULT         "\033[0m"    //打印完关闭所有颜色属性
-#define SHELL_COLOR_ERROR           "\033[33m"   //黄色
-#define SHELL_COLOR_DEBUG           "\033[36m"   //蓝色
-#define SHELL_COLOR_TRACE           "\033[32m"   //绿色
-
-#define PRINT_BUF_MAX_SIZE          128
-
 extern void Error_Handler(void);
-extern void system_disable_irq();
-extern void system_enable_irq();
-
 static UART_HandleTypeDef huart1;
-static char byMsg[PRINT_BUF_MAX_SIZE];
-static char byMsgFull[PRINT_BUF_MAX_SIZE + 32];
-
-static void PrintDebugLock(void)
-{
-	system_disable_irq();
-}
-
-static void PrintDebugUnLock(void)
-{
-	system_enable_irq();
-}
-
-static int GetCurLogLevel(void)
-{
-    return PRINT_LEVEL;
-}
-
-static const char *GetLogLevelString(int iLogLevel)
-{
-    if (PRINT_LEVEL_FAULT == iLogLevel)
-    {
-        return "FAULT";
-    }
-	else if (PRINT_LEVEL_DEBUG == iLogLevel)
-    {
-        return "DEBUG";
-    }
-	else if (PRINT_LEVEL_TRACE == iLogLevel)
-    {
-        return "TRACE";
-    }
-	
-    return "UNKNOWN";
-}
-
-static const char *GetLogColor(int iLogLevel)
-{
-	if (PRINT_LEVEL_FAULT == iLogLevel)
-	{
-		return SHELL_COLOR_ERROR;
-	}
-	else if (PRINT_LEVEL_DEBUG == iLogLevel)
-	{
-		return SHELL_COLOR_DEBUG;
-	}
-	else if(PRINT_LEVEL_TRACE == iLogLevel)
-	{
-		return SHELL_COLOR_TRACE;
-	}
-	else
-		return SHELL_COLOR_DEFAULT;
-}
-
-void PrintDebug(int iLogLevel, char const * fmt, ...)
-{
-	va_list args;
-	const char *cpColorEnd = SHELL_COLOR_DEFAULT;
-
-	if( GetCurLogLevel() >= iLogLevel )
-	{
-		PrintDebugLock();
-
-		va_start(args, fmt);
-		vsnprintf(byMsg, sizeof(byMsg), fmt, args);
-		va_end(args);
-
-		snprintf(byMsgFull, sizeof(byMsgFull),
-				 "%s%08u| %s | %s%s\r\n",
-				 GetLogColor(iLogLevel),
-				 HAL_GetTick(),
-				 GetLogLevelString(iLogLevel),
-				 byMsg,
-				 cpColorEnd);
-		printf(byMsgFull);
-
-		PrintDebugUnLock();
-	}
-}
-
-void PrintDebugBuffer(int iLogLevel, const unsigned char * chfr, unsigned int uiLength)
-{
-	char *cpColorEnd = SHELL_COLOR_DEFAULT;
-	
-    if (uiLength > 8*PRINT_BUF_MAX_SIZE/25)
-    {
-        printf("Not enough buffer: %d\r\n", uiLength);
-        return;
-    }
-
-    if( GetCurLogLevel() >= iLogLevel )
-	{
-	    char *cStart = byMsg;
-	    unsigned int i;
-		
-		PrintDebugLock();
-		
-	    for(i = 0; i < uiLength; ++i)
-	    {
-	        unsigned char ucTemp = chfr[i];
-	        sprintf(cStart, "%02x ", ucTemp);
-
-	        cStart += 3;
-	        if (i % 16 == 15)
-	        {
-	            sprintf(cStart, "\r\n");
-	            cStart += 2;
-	        }
-	    }
-		
-	    snprintf(byMsgFull, sizeof(byMsgFull),
-	             "%s%08u| %s | (size: %u) %s%s\r\n",
-	             GetLogColor(iLogLevel),
-	             HAL_GetTick(),
-	             GetLogLevelString(iLogLevel),
-	             uiLength,
-	             byMsg,
-	             cpColorEnd);
-	    printf(byMsgFull);
-		
-		PrintDebugUnLock();
-	}
-}
 
 int uart_init(void)
 {

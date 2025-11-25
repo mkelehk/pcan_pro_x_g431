@@ -155,7 +155,7 @@ int pcan_can_set_canfdclock(uint32_t can_clock)
 		return 0;
 	}
 
-	PRINT_DEBUG("Set CANFD Clk %u", can_clock);
+	PRINT_DEBUG("Set CANFD Clk %lu", can_clock);
 	
 #ifdef CANABLE2
 	//计算分频系数 SYSCLK = ( ( 16MHz / PLLM ) * PLLN ) / PLLR
@@ -350,11 +350,11 @@ int pcan_can_set_canfdclock(uint32_t can_clock)
 	canfd_clock = HAL_RCCEx_GetPeriphCLKFreq(RCC_PERIPHCLK_FDCAN);
 	if(canfd_clock != can_clock)
 	{
-		PRINT_FAULT("Get CANFD Clk %u != %u", canfd_clock, can_clock);
+		PRINT_FAULT("Get CANFD Clk %lu != %lu", canfd_clock, can_clock);
 		Error_Handler();
 	}
 
-	PRINT_DEBUG("SystemCoreClock = %u, canfd_clock = %u", SystemCoreClock, canfd_clock);
+	PRINT_DEBUG("SystemCoreClock = %lu, canfd_clock = %lu", SystemCoreClock, canfd_clock);
 	
 	return 0;
 }
