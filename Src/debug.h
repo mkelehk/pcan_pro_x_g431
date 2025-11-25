@@ -6,7 +6,7 @@ extern void system_disable_irq();
 extern void system_enable_irq();
 
 //for debug
-#define DEBUG
+//#define DEBUG
 #define DEBUG_LEVEL  2 /*0 1 2*/
 
 #define SHELL_COLOR_DEFAULT         "\033[0m"    //打印完关闭所有颜色属性
