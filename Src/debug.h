@@ -7,7 +7,7 @@ extern void system_enable_irq();
 
 //for debug
 //#define DEBUG
-#define DEBUG_LEVEL  2 /*0 1 2*/
+#define PRINT_LEVEL  1 /*0 1 2*/
 
 #define SHELL_COLOR_DEFAULT         "\033[0m"    //打印完关闭所有颜色属性
 #define SHELL_COLOR_ERROR           "\033[33m"   //黄色
@@ -27,7 +27,7 @@ extern void system_enable_irq();
 #define PRINT_FAULT(...)
 #endif
 
-#if defined(DEBUG) && (DEBUG_LEVEL > 0)
+#if defined(DEBUG) && (PRINT_LEVEL > 0)
 #define PRINT_DEBUG(fmt, args...) \
 	do { \
 			system_disable_irq(); \
@@ -41,7 +41,7 @@ extern void system_enable_irq();
 #define PRINT_DEBUG(...)
 #endif
 
-#if defined(DEBUG) && (DEBUG_LEVEL > 1)
+#if defined(DEBUG) && (PRINT_LEVEL > 1)
 #define PRINT_TRACE(fmt, args...) \
 	do { \
 			system_disable_irq(); \
