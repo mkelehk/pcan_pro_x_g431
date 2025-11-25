@@ -92,7 +92,7 @@ static int _can_send( FDCAN_HandleTypeDef *p_can, struct t_can_msg *p_msg )
 	uint32_t byte_count = 0;
 	
 	bool tx_fifo_full = can_is_tx_fifo_full();
-	bool tx_allowed = can_is_tx_allowed();
+	eFeedback tx_allowed = can_is_tx_allowed();
 	
 	//CANFD控制器内部发送队列满或者当前不允许发送就直接退出
 	if( tx_fifo_full || (tx_allowed != FBK_Success) )

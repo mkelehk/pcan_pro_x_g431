@@ -298,7 +298,7 @@ void can_process(uint32_t tick_now)
     // -------------------------- Tx Event ------------------------------------
 
     uint8_t can_data_buf[64] = {0};
-    char    dbg_msg_buf[100];
+    //char    dbg_msg_buf[100];
 
     // This was competely wrong in the original Candlelight firmware (fixed by Elm�soft).
     // Instead of sending a Tx Event to the host in the moment when the processor has really sent the packet to the CAN bus

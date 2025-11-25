@@ -397,7 +397,7 @@ int main(void)
   pcan_timestamp_init();
   uart_init();
   
-  PRINT_INFO("Firmware compile time:%s %s", __DATE__, __TIME__);
+  PRINT_DEBUG("Firmware compile time:%s %s", __DATE__, __TIME__);
   
   pcan_led_init();
   pcan_led_set_mode( LED_STAT, LED_MODE_BLINK_FAST, 0xFFFFFFFF );

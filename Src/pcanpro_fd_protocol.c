@@ -639,15 +639,7 @@ void pcan_protocol_process_data( uint8_t ep, uint8_t *ptr, uint16_t size )
 	    	p_tx_msg->channel_dlc,
 	    	p_tx_msg->flags
 	    	);
-		for(int i =0; i < p_tx_msg->size; i++)
-		{
-			if(i && i%16 == 0)
-			{
-				PRINT_TRACE("");
-			}
-			PRINT_TRACE("%x ",p_tx_msg->d[i]);
-		}
-		PRINT_TRACE("");
+		PRINT_TRACE_BUFFER(p_tx_msg->d, p_tx_msg->size);
 #endif
 		//bug??
 		if( (size == 64) && ((pmsg->size == 68) || (pmsg->size == 84)) )
