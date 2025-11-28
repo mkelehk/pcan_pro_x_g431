@@ -487,8 +487,8 @@ void can_process(uint32_t tick_now)
     if (print_chip_delay_once && tdc_offset > 0 && cur_status.TDCvalue > tdc_offset && cur_status.TDCvalue < 127)
     {
         print_chip_delay_once = false;
-        uint32_t clock_MHz    = system_get_can_clock() / 1000000; // 160
-        uint32_t chip_delay   = cur_status.TDCvalue - tdc_offset;
+        //uint32_t clock_MHz    = system_get_can_clock() / 1000000; // 160
+        //uint32_t chip_delay   = cur_status.TDCvalue - tdc_offset;
 
         // chip_delay = 21 mtq --> 21 * 1000 / 160 = 131 ns
         //sprintf(dbg_msg_buf, "Measured transceiver chip delay: %lu ns", chip_delay * 1000 / clock_MHz);

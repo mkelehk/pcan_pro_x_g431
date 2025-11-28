@@ -1,4 +1,4 @@
-#include <stm32g4xx_hal.h>
+#include "stm32g4xx_hal.h"
 #include "pcanpro_timestamp.h"
 #include "pcanpro_can.h"
 #include "pcanpro_led.h"

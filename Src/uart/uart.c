@@ -6,9 +6,11 @@
 
 #include "debug.h"
 
-#ifdef DEBUG
+//不输出打印信息时不初始化串口
+#if (PRINT_LEVEL > PRINT_LEVEL_NONE)
+
 extern void Error_Handler(void);
-static UART_HandleTypeDef huart1;
+static UART_HandleTypeDef huart1 = {0};
 
 int uart_init(void)
 {
