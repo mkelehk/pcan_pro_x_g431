@@ -36,7 +36,7 @@ extern uint32_t HAL_GetTick(void);
 				printf( "%s%08lu| FAULT | (size: %u):\r\n", SHELL_COLOR_ERROR, (unsigned long)HAL_GetTick(), len ); \
 				for(i = 0; i < len; ++i) \
 				{ \
-					printf( "%02x ", buf[i] ); \
+					printf( "%02x ", ((uint8_t *)buf)[i] ); \
 					if(i % 16 == 15) \
 					{ \
 						printf( "\r\n" ); \
@@ -67,7 +67,7 @@ extern uint32_t HAL_GetTick(void);
 			printf( "%s%08lu| DEBUG | (size: %u):\r\n", SHELL_COLOR_DEBUG, (unsigned long)HAL_GetTick(), len ); \
 			for(i = 0; i < len; ++i) \
 			{ \
-				printf( "%02x ", buf[i] ); \
+				printf( "%02x ", ((uint8_t *)buf)[i] ); \
 				if(i % 16 == 15) \
 				{ \
 					printf( "\r\n" ); \
@@ -97,7 +97,7 @@ extern uint32_t HAL_GetTick(void);
 			printf( "%s%08lu| TRACE | (size: %u):\r\n", SHELL_COLOR_TRACE, (unsigned long)HAL_GetTick(), len ); \
 			for(i = 0; i < len; ++i) \
 			{ \
-				printf( "%02x ", buf[i] ); \
+				printf( "%02x ", ((uint8_t *)buf)[i] ); \
 				if(i % 16 == 15) \
 				{ \
 					printf( "\r\n" ); \

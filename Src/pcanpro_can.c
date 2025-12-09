@@ -100,7 +100,7 @@ static int _can_send( FDCAN_HandleTypeDef *p_can, struct t_can_msg *p_msg )
 		PRINT_FAULT("Tx is not allowed! %d %d", tx_fifo_full, tx_allowed);
 		return -1;
 	}
-		
+	
 	tx_header.TxFrameType         = FDCAN_DATA_FRAME;
 	tx_header.FDFormat            = FDCAN_CLASSIC_CAN;
 	tx_header.IdType              = FDCAN_STANDARD_ID;
@@ -174,7 +174,7 @@ static void pcan_can_flush_tx( int bus )
   }
 
   /* update fifo index */
-  p_dev->tx_tail = (p_dev->tx_tail+1)&(CAN_TX_FIFO_SIZE-1);
+  p_dev->tx_tail = (p_dev->tx_tail+1)%(CAN_TX_FIFO_SIZE-1);
 }
 
 int pcan_can_write( int bus, struct t_can_msg *p_msg )
@@ -187,7 +187,7 @@ int pcan_can_write( int bus, struct t_can_msg *p_msg )
   if( !p_msg )
     return 0;
 
-  uint32_t  tx_head_next = (p_dev->tx_head+1)&(CAN_TX_FIFO_SIZE-1);
+  uint32_t  tx_head_next = (p_dev->tx_head+1)%(CAN_TX_FIFO_SIZE-1);
   /* overflow ? just skip it */
   if( tx_head_next == p_dev->tx_tail )
   {
